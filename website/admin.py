@@ -1,5 +1,5 @@
 from django.contrib.admin import register, ModelAdmin
-from .models import UserProfile, Quiz, Question, Answer
+from .models import UserProfile, Quiz, Question, Answer, Session
 
 
 @register(UserProfile)
@@ -24,3 +24,9 @@ class QuestionAdmin(ModelAdmin):
 class AnswerAdmin(ModelAdmin):
     list_display = ("question", "content", "right_answer")
     fields = ("question", "content", "right_answer")
+
+
+@register(Session)
+class SessionAdmin(ModelAdmin):
+    list_display = ("user", "quiz", "score", "start_time")
+    fields = ("user", "quiz")
