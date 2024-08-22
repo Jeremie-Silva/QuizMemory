@@ -1,0 +1,25 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-sm bg-body-tertiary mb-5" role="navigation">
+  <div class="container">
+    <!-- Logo aligné à gauche -->
+    <a class="navbar-brand" href="{% url 'website:start' %}">
+      <img src="{% static 'images/brain.png' %}" id="main_logo" height="40px" alt="Logo">
+      <span><i>QuizMemory</i></span>
+    </a>
+
+    <!-- Bouton de bascule pour petits écrans -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Menu de navigation aligné à droite -->
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link pe-3 {% if request.path == '/start/' %}active{% endif %}" href="/start" {% if request.path == '/' %}aria-current="page"{% endif %}>▶️ C'est parti</a>
+        <a class="nav-link pe-3 {% if request.path == '/quiz/' %}active{% endif %}" href="/quiz" {% if request.path == '/' %}aria-current="page"{% endif %}>Quiz</a>
+        <a class="nav-link pe-3 {% if request.path == '/sessions/' %}active{% endif %}" href="/sessions" {% if request.path == '/sessions/' %}aria-current="page"{% endif %}>Sessions</a>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -10,23 +10,23 @@ class UserProfileAdmin(ModelAdmin):
 
 @register(Quiz)
 class QuizAdmin(ModelAdmin):
-    list_display = ("title", "cumulative_score")
-    fields = ("title", "cumulative_score")
+    list_display = ("title", "image_url",)
+    fields = ("title", "image_url",)
 
 
 @register(Question)
 class QuestionAdmin(ModelAdmin):
-    list_display = ("title", "quiz", "score")
-    fields = ("title", "quiz", "score")
-
-
-@register(Answer)
-class AnswerAdmin(ModelAdmin):
-    list_display = ("question", "content", "right_answer")
-    fields = ("question", "content", "right_answer")
+    list_display = ("title", "quiz", "correct_answer",)
+    fields = ("title", "quiz", "correct_answer",)
 
 
 @register(Session)
 class SessionAdmin(ModelAdmin):
-    list_display = ("user", "quiz", "score", "start_time")
-    fields = ("user", "quiz")
+    list_display = ("user", "quiz", "start_time",)
+    fields = ("user", "quiz",)
+
+
+@register(Answer)
+class AnswerAdmin(ModelAdmin):
+    list_display = ("session", "question", "content",)
+    fields = ("session", "question", "content",)

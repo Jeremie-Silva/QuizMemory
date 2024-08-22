@@ -1,4 +1,4 @@
-from django.db.models import Model, CASCADE, OneToOneField, CharField, ForeignKey, IntegerField, TextField, BooleanField, DateTimeField
+from django.db.models import Model, CASCADE, OneToOneField, CharField, ForeignKey, IntegerField, TextField, BooleanField, DateTimeField, URLField
 from django.contrib.auth.models import User
 
 
@@ -12,6 +12,7 @@ class UserProfile(Model):
 
 class Quiz(Model):
     title = CharField(max_length=255)
+    image_url = URLField()
 
     def __str__(self):
         return self.title
@@ -20,19 +21,10 @@ class Quiz(Model):
 class Question(Model):
     title = CharField(max_length=255)
     quiz = ForeignKey(Quiz, on_delete=CASCADE, related_name="questions")
-    score = IntegerField(default=0)
+    correct_answer = CharField(max_length=255)
 
     def __str__(self):
         return self.title
-
-
-class Answer(Model):
-    question = ForeignKey(Question, on_delete=CASCADE, related_name="answers")
-    content = TextField()
-    right_answer = BooleanField(default=False)
-
-    def __str__(self):
-        return self.content
 
 
 class Session(Model):
@@ -43,8 +35,12 @@ class Session(Model):
     completed = BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.user.user.username} - {self.quiz.title} - {'Completed' if self.completed else 'In Progress'}"
+        return f"{self.user.user.username} - {self.quiz.title}"
 
-    @property
-    def score(self):
-        return sum([1 for question in self.quiz.questions.all() if question.answer.right_answer])
+class Answer(Model):
+    session = ForeignKey(Session, on_delete=CASCADE, related_name="answers")
+    question = ForeignKey(Question, on_delete=CASCADE, related_name="answer")
+    content = CharField(max_length=255)
+
+    def __str__(self):
+        return self.content

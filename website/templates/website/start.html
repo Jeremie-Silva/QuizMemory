@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="fr" data-bs-theme="dark">
+<head>
+    {% include 'website/_head.html' %}
+    <title>C'est parti</title>
+
+</head>
+<body>
+  {% include 'website/_navbar.html' %}
+
+ <div class="container">
+        <h2 class="mt-4 mb-4 d-flex justify-content-center">C'est parti :</h2>
+
+           {% for item in quiz %}
+              <div class="d-grid mt-4 mb-4 col-3 m-auto">
+                <a href="{% url 'website:new_session' item.id %}" class="btn btn-outline-primary btn-lg">
+                  <img src="{{ item.image_url }}" height="40px" class="m-2">
+                  <b>{{ item.title }}</b>
+                </a>
+              </div>
+           {% endfor %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

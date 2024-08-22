@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="fr" data-bs-theme="dark">
+<head>
+    {% include 'website/_head.html' %}
+    <title>Session {{ session.id }} - Résultats</title>
+</head>
+<body>
+  {% include 'website/_navbar.html' %}
+
+  <div class="container mt-5">
+    <h2><img src="{{ session.quiz.image_url }}" height="40px" class="m-2"> {{ session.quiz.title }} - Résultats</h2>
+
+    <div class="alert alert-light mt-4">
+      <h4>🏆 Score global : {{ session_score }}</h4>
+    </div>
+
+    <ul class="list-group mt-4">
+      {% for qa in questions_and_answers %}
+        <li class="list-group-item">
+          <div class="d-inline-flex align-items-center">
+            <h5 class="mb-0"><strong>{{ forloop.counter }} : {{ qa.question.title }}</strong></h5>
+            {% if qa.user_answer and qa.user_answer.content == qa.correct_answer %}
+              <span class="badge bg-success ms-3">Correct</span>
+            {% else %}
+              <span class="badge bg-danger ms-3">Incorrect</span>
+            {% endif %}
+          </div>
+
+          <p class="mt-3">
+            {% if qa.user_answer %}
+              {{ qa.user_answer.content }}
+            {% else %}
+              Non répondu
+            {% endif %}
+
+            {% if not qa.user_answer or qa.user_answer.content != qa.correct_answer %}
+              <p class="text-muted"><b>Réponse : </b>{{ qa.correct_answer }}</p>
+            {% endif %}
+          </p>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <a href="{% url 'website:start' %}" class="btn btn-primary mt-4">Revenir aux Quiz</a>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
