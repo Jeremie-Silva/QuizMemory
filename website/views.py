@@ -1,3 +1,4 @@
+from random import shuffle
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.views import LoginView
@@ -33,17 +34,28 @@ def start(request):
 def new_session(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
     session, created = Session.objects.get_or_create(user=request.user.profile, quiz=quiz, completed=False)
-    current_question = session.quiz.questions.filter(
-        id__gt=session.answers.last().question.id if session.answers.exists() else 0
-    ).first()
+    if created:
+        all_questions = list(quiz.questions.all())
+        shuffle(all_questions)
+        request.session[f'shuffled_questions_{session.id}'] = [q.id for q in all_questions]
+        request.session[f'current_question_index_{session.id}'] = 0
+    question_ids = request.session.get(f'shuffled_questions_{session.id}', [])
+    current_index = request.session.get(f'current_question_index_{session.id}', 0)
+    if current_index < len(question_ids):
+        current_question = Question.objects.get(id=question_ids[current_index])
+    else:
+        current_question = None
     if not current_question:
         session.completed = True
         session.save()
+        request.session.pop(f'shuffled_questions_{session.id}', None)
+        request.session.pop(f'current_question_index_{session.id}', None)
         return redirect("website:session_details", session_id=session.id)
     if request.method == "POST":
         user_answer = request.POST.get("answer")
         if user_answer:
             Answer.objects.create(session=session, question=current_question, content=user_answer)
+            request.session[f'current_question_index_{session.id}'] += 1
             return redirect("website:new_session", quiz_id=quiz.id)
     return render(request, "website/new_session.html", {"quiz": quiz, "question": current_question, 'session': session})
 
