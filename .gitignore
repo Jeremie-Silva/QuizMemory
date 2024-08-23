@@ -6,3 +6,4 @@
 /.idea/QuizMemory.iml
 /.idea/vcs.xml
 /staticfiles
+.env
