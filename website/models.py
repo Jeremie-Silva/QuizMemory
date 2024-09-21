@@ -1,4 +1,4 @@
-from django.db.models import Model, CASCADE, OneToOneField, CharField, ForeignKey, IntegerField, TextField, BooleanField, DateTimeField, URLField
+from django.db.models import Model, CASCADE, OneToOneField, CharField, ForeignKey, IntegerField, TextField, BooleanField, DateTimeField, URLField, ImageField
 from django.contrib.auth.models import User
 
 
@@ -22,6 +22,8 @@ class Question(Model):
     title = CharField(max_length=255)
     quiz = ForeignKey(Quiz, on_delete=CASCADE, related_name="questions")
     correct_answer = CharField(max_length=255)
+    image = ImageField(upload_to="question_images/", null=True, blank=True)
+
 
     def __str__(self):
         return self.title
@@ -36,6 +38,7 @@ class Session(Model):
 
     def __str__(self):
         return f"{self.user.user.username} - {self.quiz.title}"
+
 
 class Answer(Model):
     session = ForeignKey(Session, on_delete=CASCADE, related_name="answers")

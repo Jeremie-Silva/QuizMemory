@@ -5,6 +5,10 @@
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/QuizMemory.iml
 /.idea/vcs.xml
+/.idea/dataSources.xml
+/.idea/deployment.xml
+/.idea/sqldialects.xml
+/.idea/webServers.xml
 /staticfiles
 .env
 db.sqlite3

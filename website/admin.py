@@ -16,8 +16,8 @@ class QuizAdmin(ModelAdmin):
 
 @register(Question)
 class QuestionAdmin(ModelAdmin):
-    list_display = ("title", "quiz", "correct_answer",)
-    fields = ("title", "quiz", "correct_answer",)
+    list_display = ("title", "quiz", "correct_answer", "image",)
+    fields = ("title", "quiz", "image", "correct_answer",)
 
 
 @register(Session)
