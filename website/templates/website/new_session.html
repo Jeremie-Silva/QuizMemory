@@ -15,7 +15,7 @@
     </h2>
     <p><strong>{{ question.title }}</strong></p>
     {% if question.image %}
-      <img src="{{ question.image.url }}" alt="Image de la question" class="img-fluid mb-3">
+      <img src="{{ question.image.url }}" alt="Image de la question" class="img-fluid mb-3 col-4">
     {% endif %}
 
     <form id="quiz-form" class="col-4 mx-auto" method="post">
