@@ -21,7 +21,7 @@
         <li class="list-group-item">
           <div class="d-inline-flex align-items-center">
             <h5 class="mb-0"><strong>{{ forloop.counter }} : {{ qa.question.title }}</strong></h5>
-            {% if qa.user_answer and qa.user_answer.content == qa.correct_answer %}
+            {% if qa.user_answer and qa.user_answer.content|lower == qa.correct_answer|lower %}
               <span class="badge bg-success ms-3">Correct</span>
             {% else %}
               <span class="badge bg-danger ms-3">Incorrect</span>
