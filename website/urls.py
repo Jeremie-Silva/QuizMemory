@@ -3,6 +3,7 @@ from .views import CustomLoginView, quiz, sessions, start, new_session, session_
 from django.shortcuts import redirect
 
 
+
 app_name = 'website'
 
 urlpatterns = [
