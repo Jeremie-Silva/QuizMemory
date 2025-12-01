@@ -3,7 +3,6 @@ from django.shortcuts import redirect
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .views import CustomLoginView, quiz, sessions, start, new_session, session_details
-from django.shortcuts import redirect
 
 
 
