@@ -106,3 +106,10 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=4),
 }
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Quiz Memory API',
+    'VERSION': 'v1',
+    'CONTACT': {'email': 'silva.jeremie93@gmail.com'},
+    'PUBLIC': False
+}
